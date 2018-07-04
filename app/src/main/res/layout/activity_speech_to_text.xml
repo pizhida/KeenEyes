@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/edtSpeechTotext"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/linearButton"
+        />
+
+    <LinearLayout
+        android:id="@+id/linearButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true"
+        >
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnSearch"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="ค้นหา"
+            />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnReset"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="ล้างค่า"
+            />
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnRec"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="อัดเสียง"
+        android:layout_centerInParent="true"
+
+        />
+
+
+
+</RelativeLayout>

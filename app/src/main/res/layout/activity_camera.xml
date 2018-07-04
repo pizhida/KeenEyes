@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--&gt;-->
+
+        <!--<com.otaliastudios.cameraview.CameraView-->
+            <!--android:id="@+id/camera"-->
+            <!--android:keepScreenOn="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--/>-->
+
+    <!--</LinearLayout>-->
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@id/ll_camera_holder"
+        >
+
+        <Button
+            android:id="@+id/btn_nothing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ไม่มี"
+            />
+
+
+        <Button
+            android:id="@+id/btn_vos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="วอส."
+            />
+
+        <Button
+            android:id="@+id/btn_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ผ."
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_camera_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/text_vos"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="วอส."
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/text_p"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="ผ."
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
+
+            <com.otaliastudios.cameraview.CameraView
+                android:id="@+id/camera"
+                android:keepScreenOn="true"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/capture_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="capture"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        />
+
+
+</RelativeLayout>
