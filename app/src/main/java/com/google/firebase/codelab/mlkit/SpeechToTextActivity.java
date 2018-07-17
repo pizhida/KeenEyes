@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 public class SpeechToTextActivity extends AppCompatActivity
 {
@@ -16,7 +17,7 @@ public class SpeechToTextActivity extends AppCompatActivity
     private static final int REQUEST_CODE_VOICE_RECOGNITION = 1001;
 
     private EditText mEditTextspeechToText;
-    private Button mButtonSpeechToTextSearch;
+    private ImageView mButtonSpeechToTextSearch;
     private Button mButtonSpeechToTextReset;
     private Button mButtonSpeechTotextRecord;
 
@@ -51,6 +52,16 @@ public class SpeechToTextActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 mEditTextspeechToText.setText("");
+            }
+        });
+
+        mButtonSpeechToTextSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(SpeechToTextActivity.this, WebViewActivity.class);
+                myIntent.putExtra("number", mEditTextspeechToText.getText().toString()); //Optional parameters
+                SpeechToTextActivity.this.startActivity(myIntent);
+                finish();
             }
         });
     }

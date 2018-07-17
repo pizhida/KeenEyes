@@ -6,25 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitStart"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:contentDescription="Select image for text recognition" />
 
-        <com.google.firebase.codelab.mlkit.GraphicOverlay
-            android:id="@+id/graphic_overlay"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true" />
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_oryor_banner"
+            />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="0dp"
+            app:srcCompat="@drawable/ic_oryor_banner_q" />
+
+    </RelativeLayout>
+
+
+    <!--<ImageView-->
+        <!--android:id="@+id/image_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:scaleType="fitStart"-->
+        <!--app:layout_constraintTop_toBottomOf="parent"-->
+        <!--app:layout_constraintBottom_toTopOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--android:contentDescription="Select image for text recognition" />-->
+
+        <!--<com.google.firebase.codelab.mlkit.GraphicOverlay-->
+            <!--android:id="@+id/graphic_overlay"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentLeft="true" />-->
     <!--<Spinner-->
         <!--android:id="@+id/spinner"-->
         <!--android:layout_width="match_parent"-->
@@ -34,32 +58,91 @@
         <!--app:layout_constraintBottom_toTopOf="@id/button_text"-->
         <!--android:background="@android:drawable/btn_dropdown"-->
         <!--android:spinnerMode="dropdown"-->
-    />
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/text_title"
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_txtResult"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_below="@id/toolbar"-->
+        <!--&gt;-->
+
+        <!---->
+        <!--<android.support.v7.widget.AppCompatTextView-->
+            <!--android:id="@+id/text_result"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingLeft="20dp"-->
+            <!--tools:text="fsfdfddffdsfds"-->
+            <!--android:hint="Result Text"-->
+            <!--android:textColor="#000000"-->
+            <!--android:layout_below="@id/text_title"-->
+
+            <!--/>-->
+
+    <!--</LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/ll_textResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_below="@id/toolbar"
+        >
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/text_result"
+            android:layout_marginTop="8dp"
+            android:layout_width="250dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:hint="พิมพ์เลขค้นหา"
+            android:inputType="text"
+            android:textColor="@color/colorBlack"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_round_white_bg"
+
+            />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="-20dp"
+            app:srcCompat="@drawable/ic_search_btn"
+            />
+
+
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_marginTop="10dp"
+        android:layout_width="400dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_recent_search"
+        android:layout_below="@id/ll_textResult"
+
+        />
+
+    <android.support.v7.widget.AppCompatImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ผลการค้นหา"
-        android:paddingLeft="20dp"
+        app:srcCompat="@drawable/ic_home_mascot"
+        android:layout_above="@id/footer"
+        android:layout_alignParentRight="true"
 
         />
 
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/text_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        tools:text="fsfdfddffdsfds"
-        android:hint="Result Text"
-        android:textColor="#000000"
-        android:layout_below="@id/text_title"
-
-         />
-
-
     <LinearLayout
+        android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -70,36 +153,55 @@
         app:layout_constraintBottom_toTopOf="@id/button_text"
         >
 
-
-
-        <Button
-            android:id="@+id/button_capture"
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/img_camera_footer"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:enabled="true"
-            android:text="ตรวจเลขด้วยเสียง"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            app:srcCompat="@drawable/ic_camera_footer"
+            android:scaleType="center"
             />
 
-        <Button
-            android:id="@+id/button_capture_cm"
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/img_voice_footer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:text="ตรวจเลขด้วยกล้อง OCR"
+            app:srcCompat="@drawable/ic_voice_footer"
+            android:scaleType="center"
             />
 
-        <Button
-            android:id="@+id/button_captured"
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/img_request_footer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:enabled="false"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:text="Capture" />
+            app:srcCompat="@drawable/ic_request_footer"
+            android:scaleType="center"
+            />
+
+
+
+        <!--<Button-->
+            <!--android:id="@+id/button_capture_cm"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintRight_toRightOf="parent"-->
+            <!--android:text="ตรวจเลขด้วยกล้อง OCR"-->
+            <!--/>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button_captured"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:enabled="false"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintRight_toRightOf="parent"-->
+            <!--android:text="Capture" />-->
 
     </LinearLayout>
 

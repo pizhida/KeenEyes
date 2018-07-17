@@ -38,6 +38,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.codelab.mlkit.GraphicOverlay.Graphic;
 import com.google.firebase.codelab.mlkit.event.ChoosePrefixEvent;
+import com.google.firebase.codelab.mlkit.event.SelectImageInGalleryEvent;
 import com.google.firebase.codelab.mlkit.event.SendImageEvent;
 import com.google.firebase.codelab.mlkit.interfaces.ImageUtilsCallback;
 import com.google.firebase.codelab.mlkit.interfaces.OnpermissionResultListener;
@@ -83,18 +85,20 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, ImageUtilsCallback<SimpleDraweeView>, ActivityCompat.OnRequestPermissionsResultCallback
 {
     private static final String TAG = "MainActivity";
-    private ImageView mImageView;
+   // private ImageView mImageView;
     private Button mButton;
     private Button mCloudButton;
     private Bitmap mSelectedImage;
-    private Button mButtonCapture;
-    private Button mButtonCaptureCm;
+    private ImageView mButtonCapture;
+    private ImageView mButtonCaptureCm;
 
     private String filename;
 
-    private TextView textResult;
+    private EditText textResult;
 
     private TessBaseAPI tessBaseApi;
+
+    private ImageView searchBtn;
 
     private String prefix;
     private GraphicOverlay mGraphicOverlay;
@@ -123,16 +127,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         prefix = "";
         filename = "";
 
-        mImageView = findViewById(R.id.image_view);
+        //mImageView = findViewById(R.id.image_view);
 
         mButton = findViewById(R.id.button_text);
         mCloudButton = findViewById(R.id.button_cloud_text);
-        mButtonCapture = findViewById(R.id.button_capture);
-        mButtonCaptureCm = findViewById(R.id.button_capture_cm);
+        mButtonCapture = findViewById(R.id.img_voice_footer);
+        mButtonCaptureCm = findViewById(R.id.img_camera_footer);
+        searchBtn = findViewById(R.id.btn_search);
 
         textResult = findViewById(R.id.text_result);
 
-        mGraphicOverlay = findViewById(R.id.graphic_overlay);
+        //mGraphicOverlay = findViewById(R.id.graphic_overlay);
 
         imageUtils = new ImageUtils();
         imageUtils.setCallback(this);
@@ -143,6 +148,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             {
 //                imageUtils.setConfig(true, CropImageView.CropShape.RECTANGLE, 1, 1).takeAPicture(MainActivity.this);
                 Intent myIntent = new Intent(MainActivity.this, SpeechToTextActivity.class);
+                myIntent.putExtra("number", textResult.getText().toString()); //Optional parameters
+                MainActivity.this.startActivity(myIntent);
+            }
+        });
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(MainActivity.this, WebViewActivity.class);
                 //myIntent.putExtra("key", value); //Optional parameters
                 MainActivity.this.startActivity(myIntent);
             }
@@ -152,25 +166,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View view)
             {
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage("เลือกวิธีสแกน OCR ?");
-                builder.setPositiveButton("เลือกรูป", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        imageUtils.setConfig(true, CropImageView.CropShape.RECTANGLE, 1, 1).pickImage(MainActivity.this);
-                    }
-                });
-                builder.setNegativeButton("ถ่ายรูป", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //dialog.dismiss();
-                        granted();
-                    }
-                });
-                builder.show();
+//                AlertDialog.Builder builder =
+//                        new AlertDialog.Builder(MainActivity.this);
+//                builder.setMessage("เลือกวิธีสแกน OCR ?");
+//                builder.setPositiveButton("เลือกรูป", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        imageUtils.setConfig(true, CropImageView.CropShape.RECTANGLE, 1, 1).pickImage(MainActivity.this);
+//                    }
+//                });
+//                builder.setNegativeButton("ถ่ายรูป", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        //dialog.dismiss();
+//                        granted();
+//                    }
+//                });
+//                builder.show();
 
 
-                //granted();
+                granted();
 
 //                Intent myIntent = new Intent(MainActivity.this, CameraActivity.class);
 //                //myIntent.putExtra("key", value); //Optional parameters
@@ -338,7 +352,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         String sum = "";
 
-        mGraphicOverlay.clear();
+        //mGraphicOverlay.clear();
         for (int i = 0; i < blocks.size(); i++) {
             List<FirebaseVisionText.Line> lines = blocks.get(i).getLines();
 
@@ -347,10 +361,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 List<FirebaseVisionText.Element> elements = lines.get(j).getElements();
                 for (int k = 0; k < elements.size(); k++) {
 
-                    if(elements.get(k).getText().matches("[0-9]+"))
+                    if(!elements.get(k).getText().matches("[a-zA-Z]+"))
                     {
+//                        sum = sum + elements.get(k).getText().replace(" ","");
+
                         sum = sum + elements.get(k).getText().replace(" ","");
                     }
+
+                    //sum = sum + elements.get(k).getText();
 //                    Graphic textGraphic = new TextGraphic(mGraphicOverlay, elements.get(k));
 //                    mGraphicOverlay.add(textGraphic);
 
@@ -444,46 +462,46 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     // Returns max image width, always for portrait mode. Caller needs to swap width / height for
     // landscape mode.
-    private Integer getImageMaxWidth() {
-        if (mImageMaxWidth == null) {
-            // Calculate the max width in portrait mode. This is done lazily since we need to
-            // wait for
-            // a UI layout pass to get the right values. So delay it to first time image
-            // rendering time.
-            mImageMaxWidth = mImageView.getWidth();
-        }
-
-        return mImageMaxWidth;
-    }
+//    private Integer getImageMaxWidth() {
+//        if (mImageMaxWidth == null) {
+//            // Calculate the max width in portrait mode. This is done lazily since we need to
+//            // wait for
+//            // a UI layout pass to get the right values. So delay it to first time image
+//            // rendering time.
+//            mImageMaxWidth = mImageView.getWidth();
+//        }
+//
+//        return mImageMaxWidth;
+//    }
 
     // Returns max image height, always for portrait mode. Caller needs to swap width / height for
     // landscape mode.
-    private Integer getImageMaxHeight() {
-        if (mImageMaxHeight == null) {
-            // Calculate the max width in portrait mode. This is done lazily since we need to
-            // wait for
-            // a UI layout pass to get the right values. So delay it to first time image
-            // rendering time.
-            mImageMaxHeight =
-                    mImageView.getHeight();
-        }
-
-        return mImageMaxHeight;
-    }
+//    private Integer getImageMaxHeight() {
+//        if (mImageMaxHeight == null) {
+//            // Calculate the max width in portrait mode. This is done lazily since we need to
+//            // wait for
+//            // a UI layout pass to get the right values. So delay it to first time image
+//            // rendering time.
+//            mImageMaxHeight =
+//                    mImageView.getHeight();
+//        }
+//
+//        return mImageMaxHeight;
+//    }
 
     // Gets the targeted width / height.
-    private Pair<Integer, Integer> getTargetedWidthHeight() {
-        int targetWidth;
-        int targetHeight;
-        int maxWidthForPortraitMode = getImageMaxWidth();
-        int maxHeightForPortraitMode = getImageMaxHeight();
-        targetWidth = maxWidthForPortraitMode;
-        targetHeight = maxHeightForPortraitMode;
-        return new Pair<>(targetWidth, targetHeight);
-    }
+//    private Pair<Integer, Integer> getTargetedWidthHeight() {
+//        int targetWidth;
+//        int targetHeight;
+//        int maxWidthForPortraitMode = getImageMaxWidth();
+//        int maxHeightForPortraitMode = getImageMaxHeight();
+//        targetWidth = maxWidthForPortraitMode;
+//        targetHeight = maxHeightForPortraitMode;
+//        return new Pair<>(targetWidth, targetHeight);
+//    }
 
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-        mGraphicOverlay.clear();
+        //mGraphicOverlay.clear();
         switch (position) {
             case 0:
                 mSelectedImage = getBitmapFromAsset(this, "Please_walk_on_the_grass.jpg");
@@ -500,26 +518,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         if (mSelectedImage != null) {
             // Get the dimensions of the View
-            Pair<Integer, Integer> targetedSize = getTargetedWidthHeight();
-
-            int targetWidth = targetedSize.first;
-            int maxHeight = targetedSize.second;
-
-            // Determine how much to scale down the image
-            float scaleFactor =
-                    Math.max(
-                            (float) mSelectedImage.getWidth() / (float) targetWidth,
-                            (float) mSelectedImage.getHeight() / (float) maxHeight);
-
-            Bitmap resizedBitmap =
-                    Bitmap.createScaledBitmap(
-                            mSelectedImage,
-                            (int) (mSelectedImage.getWidth() / scaleFactor),
-                            (int) (mSelectedImage.getHeight() / scaleFactor),
-                            true);
-
-            mImageView.setImageBitmap(resizedBitmap);
-            mSelectedImage = resizedBitmap;
+//            Pair<Integer, Integer> targetedSize = getTargetedWidthHeight();
+//
+//            int targetWidth = targetedSize.first;
+//            int maxHeight = targetedSize.second;
+//
+//            // Determine how much to scale down the image
+//            float scaleFactor =
+//                    Math.max(
+//                            (float) mSelectedImage.getWidth() / (float) targetWidth,
+//                            (float) mSelectedImage.getHeight() / (float) maxHeight);
+//
+//            Bitmap resizedBitmap =
+//                    Bitmap.createScaledBitmap(
+//                            mSelectedImage,
+//                            (int) (mSelectedImage.getWidth() / scaleFactor),
+//                            (int) (mSelectedImage.getHeight() / scaleFactor),
+//                            true);
+//
+//            mImageView.setImageBitmap(resizedBitmap);
+//            mSelectedImage = resizedBitmap;
         }
     }
 
@@ -685,7 +703,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             result = extractText(mSelectedImage);
 
             result.replace(" ","");
-            if(result.matches("[0-9]+"))
+            if(!result.matches("[a-zA-Z]+"))
             {
                 textResult.setText(prefix + result);
             }
@@ -806,5 +824,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSelectImageInGallery(SelectImageInGalleryEvent event)
+    {
+        imageUtils.setConfig(true, CropImageView.CropShape.RECTANGLE, 1, 1).pickImage(MainActivity.this);
+    }
 
 }

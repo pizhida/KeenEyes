@@ -2,7 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBlack"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_oryor_banner"
+            />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="0dp"
+            app:srcCompat="@drawable/ic_oryor_banner_q" />
+
+    </RelativeLayout>
 
 
     <!--<LinearLayout-->
@@ -24,29 +48,40 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         android:layout_above="@id/ll_camera_holder"
         >
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_nothing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/btn_round_red_bg_cam"
+            android:textColor="@color/colorWhite"
+            android:layout_marginRight="10dp"
             android:text="ไม่มี"
             />
 
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_vos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/btn_round_orange_bg"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/colorWhite"
             android:text="วอส."
             />
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_p"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/btn_round_orange_bg"
+            android:textColor="@color/colorWhite"
             android:text="ผ."
             />
 
@@ -72,6 +107,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:text="วอส."
+                android:textColor="@color/colorWhite"
                 android:visibility="gone"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -83,6 +119,7 @@
                 android:layout_height="100dp"
                 android:text="ผ."
                 android:visibility="gone"
+                android:textColor="@color/colorWhite"
                 android:layout_gravity="center"
                 android:gravity="center"
                 />
@@ -91,6 +128,8 @@
                 android:id="@+id/camera"
                 android:keepScreenOn="true"
                 android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_height="100dp"
                 />
         </LinearLayout>
@@ -98,14 +137,49 @@
 
     </LinearLayout>
 
-    <Button
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/capture_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="capture"
+        app:srcCompat="@drawable/ic_camera_red"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         />
+
+    <FrameLayout
+        android:id="@+id/frameLayout_live_change_cover"
+        android:layout_width="75dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/img_cover_live"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_oryor_banner_q"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/bg_gradient_grey"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/img_cover_cam"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_selectphoto" />
+        </LinearLayout>
+
+    </FrameLayout>
 
 
 </RelativeLayout>

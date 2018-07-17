@@ -13,16 +13,22 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.firebase.codelab.mlkit.event.ChoosePrefixEvent;
+import com.google.firebase.codelab.mlkit.event.SelectImageInGalleryEvent;
+import com.google.firebase.codelab.mlkit.interfaces.ImageUtilsCallback;
+import com.google.firebase.codelab.mlkit.utils.ImageUtils;
 import com.otaliastudios.cameraview.CameraListener;
 import com.otaliastudios.cameraview.CameraUtils;
 import com.otaliastudios.cameraview.CameraView;
 import com.otaliastudios.cameraview.Gesture;
 import com.otaliastudios.cameraview.GestureAction;
 import com.otaliastudios.cameraview.SizeSelector;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -44,11 +50,13 @@ public class CameraActivity extends AppCompatActivity
     private TextView mTextVos;
     private TextView mTextP;
 
-    private Button captureButton;
+    private ImageView captureButton;
 
     private Button nothingButton;
     private Button vosButton;
     private Button pButton;
+
+    private ImageView pickImage;
 
     private int pos;
 
@@ -62,8 +70,7 @@ public class CameraActivity extends AppCompatActivity
         pos = 0;
 
         cameraView = findViewById(R.id.camera);
-
-
+        pickImage = findViewById(R.id.img_cover_live);
         mTextVos = findViewById(R.id.text_vos);
         mTextP = findViewById(R.id.text_p);
 
@@ -72,7 +79,6 @@ public class CameraActivity extends AppCompatActivity
         nothingButton = findViewById(R.id.btn_nothing);
         vosButton = findViewById(R.id.btn_vos);
         pButton = findViewById(R.id.btn_p);
-
 
         nothingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +107,14 @@ public class CameraActivity extends AppCompatActivity
                 mTextP.setVisibility(View.VISIBLE);
                 mTextVos.setVisibility(View.GONE);
                 pos = 2;
+            }
+        });
+
+        pickImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventBus.getDefault().post(new SelectImageInGalleryEvent());
+                finish();
             }
         });
 
@@ -220,8 +234,6 @@ public class CameraActivity extends AppCompatActivity
 
     }
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -240,4 +252,5 @@ public class CameraActivity extends AppCompatActivity
         super.onDestroy();
         cameraView.destroy();
     }
+
 }

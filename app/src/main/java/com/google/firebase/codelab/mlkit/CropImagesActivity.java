@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.google.firebase.codelab.mlkit.event.SendImageEvent;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -23,7 +24,7 @@ public class CropImagesActivity extends AppCompatActivity
     private CropImageView cropImageView;
     private Bitmap mBitmap;
 
-    private Button cropButton;
+    private ImageView cropButton;
 
 
     @Override
