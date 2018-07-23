@@ -361,12 +361,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 List<FirebaseVisionText.Element> elements = lines.get(j).getElements();
                 for (int k = 0; k < elements.size(); k++) {
 
-                    if(!elements.get(k).getText().matches("[a-zA-Z]+"))
-                    {
+//                    if(!elements.get(k).getText().matches("[a-zA-Z]+"))
+//                    {
+////                        sum = sum + elements.get(k).getText().replace(" ","");
+//
+//                        sum = sum + elements.get(k).getText().replace(" ","");
+//                    }
+
+
 //                        sum = sum + elements.get(k).getText().replace(" ","");
 
                         sum = sum + elements.get(k).getText().replace(" ","");
-                    }
 
                     //sum = sum + elements.get(k).getText();
 //                    Graphic textGraphic = new TextGraphic(mGraphicOverlay, elements.get(k));
@@ -376,7 +381,39 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         }
 
-        textResult.setText(prefix + sum);
+        if(!sum.isEmpty())
+        {
+            //sum = "1";
+            if(sum.charAt(0) == '/')
+            {
+                sum = sum.substring(1,sum.length()-1);
+            }
+            if(sum.charAt(sum.length()-1) == '/')
+            {
+                sum = sum.substring(0,sum.length()-2);
+            }
+            String[] sums = sum.split("-");
+            if(sums.length == 0)
+            {
+                textResult.setText(prefix + sum);
+            }
+            else
+            {
+                String realsum = "";
+                for(int i=0;i<sums.length;i++)
+                {
+                    realsum += sums[i].replaceAll("[^0-9]", "");
+                    if(i != sums.length-1)
+                    {
+                        realsum += "-";
+                    }
+                }
+
+                textResult.setText(prefix + realsum);
+            }
+
+        }
+
 
         //Toast.makeText(this, texts.getText(), Toast.LENGTH_LONG).show();
     }
@@ -702,11 +739,46 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             result = extractText(mSelectedImage);
 
-            result.replace(" ","");
-            if(!result.matches("[a-zA-Z]+"))
+            if(!result.isEmpty())
             {
-                textResult.setText(prefix + result);
+                result.replace(" ","");
+
+//            if(result.replaceAll("[^0-9]", "").matches("[0-9]+"))
+//            //if(!result.matches("[a-zA-Z]+"))
+//            {
+//                textResult.setText(prefix + result);
+//            }
+
+                if(result.charAt(0) == '/')
+                {
+                    result = result.substring(1,result.length()-1);
+                }
+                if(result.charAt(result.length()-1) == '/')
+                {
+                    result = result.substring(0,result.length()-2);
+                }
+                String[] sums = result.split("-");
+                if(sums.length == 0)
+                {
+                    textResult.setText(prefix + result);
+                }
+                else
+                {
+                    String realsum = "";
+                    for(int i=0;i<sums.length;i++)
+                    {
+                        realsum += sums[i].replaceAll("[^0-9]", "");
+                        if(i != sums.length-1)
+                        {
+                            realsum += "-";
+                        }
+                    }
+
+                    textResult.setText(prefix + realsum);
+                }
             }
+
+
             //doThaiOCR();
 
         } catch (Exception e) {

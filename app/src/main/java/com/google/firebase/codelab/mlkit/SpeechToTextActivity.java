@@ -78,7 +78,44 @@ public class SpeechToTextActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_VOICE_RECOGNITION && resultCode == Activity.RESULT_OK)
         {
-            mEditTextspeechToText.setText(data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0).replace(" ", ""));
+//            if(data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0).replace(" ", "").replaceAll("[^0-9]", "").matches("[0-9]+"))
+//            {
+//                mEditTextspeechToText.setText(data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0).replace(" ", "").replaceAll("[^0-9]", ""));
+//            }
+
+            String result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0).replace(" ","");
+
+            if(!result.isEmpty())
+            {
+                if(result.charAt(0) == '/')
+                {
+                    result = result.substring(1,result.length()-1);
+                }
+                if(result.charAt(result.length()-1) == '/')
+                {
+                    result = result.substring(0,result.length()-2);
+                }
+                String[] sums = result.split("-");
+                if(sums.length == 0)
+                {
+                    mEditTextspeechToText.setText(result);
+                }
+                else
+                {
+                    String realsum = "";
+                    for(int i=0;i<sums.length;i++)
+                    {
+                        realsum += sums[i].replaceAll("[^0-9]", "");
+                        if(i != sums.length-1)
+                        {
+                            realsum += "-";
+                        }
+                    }
+
+                    mEditTextspeechToText.setText(realsum);
+                }
+            }
+            //mEditTextspeechToText.setText(data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0));
         }
 
     }
