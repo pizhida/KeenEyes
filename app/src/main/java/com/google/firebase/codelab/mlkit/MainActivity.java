@@ -386,11 +386,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             //sum = "1";
             if(sum.charAt(0) == '/')
             {
-                sum = sum.substring(1,sum.length()-1);
+                sum = sum.substring(1);
             }
             if(sum.charAt(sum.length()-1) == '/')
             {
-                sum = sum.substring(0,sum.length()-2);
+                sum = sum.substring(0,sum.length()-1);
             }
             String[] sums = sum.split("-");
             if(sums.length == 0)
@@ -751,11 +751,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 if(result.charAt(0) == '/')
                 {
-                    result = result.substring(1,result.length()-1);
+                    result = result.substring(1);
                 }
                 if(result.charAt(result.length()-1) == '/')
                 {
-                    result = result.substring(0,result.length()-2);
+                    result = result.substring(0,result.length()-1);
                 }
                 String[] sums = result.split("-");
                 if(sums.length == 0)

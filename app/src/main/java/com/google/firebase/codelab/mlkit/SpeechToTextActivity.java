@@ -89,11 +89,11 @@ public class SpeechToTextActivity extends AppCompatActivity
             {
                 if(result.charAt(0) == '/')
                 {
-                    result = result.substring(1,result.length()-1);
+                    result = result.substring(1);
                 }
                 if(result.charAt(result.length()-1) == '/')
                 {
-                    result = result.substring(0,result.length()-2);
+                    result = result.substring(0,result.length()-1);
                 }
                 String[] sums = result.split("-");
                 if(sums.length == 0)
