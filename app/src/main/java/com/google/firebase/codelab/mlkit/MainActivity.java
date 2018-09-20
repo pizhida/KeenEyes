@@ -20,6 +20,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -28,6 +29,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -92,6 +94,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ImageView mButtonCapture;
     private ImageView mButtonCaptureCm;
 
+    private ImageView mButtonCall;
+
+    private ImageView mImgViewSearch;
+
     private String filename;
 
     private EditText textResult;
@@ -99,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private TessBaseAPI tessBaseApi;
 
     private ImageView searchBtn;
+
+    private ImageView howtoButton;
 
     private String prefix;
     private GraphicOverlay mGraphicOverlay;
@@ -134,6 +142,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mButtonCapture = findViewById(R.id.img_voice_footer);
         mButtonCaptureCm = findViewById(R.id.img_camera_footer);
         searchBtn = findViewById(R.id.btn_search);
+        mImgViewSearch = findViewById(R.id.imgView_search_list);
+        mButtonCall = findViewById(R.id.img_request_footer);
+
+        howtoButton = findViewById(R.id.imgView_howto);
 
         textResult = findViewById(R.id.text_result);
 
@@ -141,6 +153,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         imageUtils = new ImageUtils();
         imageUtils.setCallback(this);
+
+        howtoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(MainActivity.this, HowToActivity.class);
+                MainActivity.this.startActivity(myIntent);
+            }
+        });
+
+        mButtonCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(MainActivity.this, CallWebViewActivity.class);
+                MainActivity.this.startActivity(myIntent);
+            }
+        });
 
         mButtonCapture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +185,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(MainActivity.this, WebViewActivity.class);
+                myIntent.putExtra("number", textResult.getText().toString()); //Optional parameters
+                MainActivity.this.startActivity(myIntent);
+            }
+        });
+
+        mImgViewSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(MainActivity.this, SearchListActivity.class);
                 //myIntent.putExtra("key", value); //Optional parameters
                 MainActivity.this.startActivity(myIntent);
             }
@@ -182,6 +219,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                    }
 //                });
 //                builder.show();
+
 
 
                 granted();
@@ -225,9 +263,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if (PermissionManager.Companion.getInstance().isHavePermission(MainActivity.this, sArray)) {
             //currentView = view
 
-            Intent myIntent = new Intent(MainActivity.this, CameraActivity.class);
-            //myIntent.putExtra("key", value); //Optional parameters
-            MainActivity.this.startActivity(myIntent);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+            Boolean yourLocked = prefs.getBoolean("locked", false);
+
+            if(yourLocked)
+            {
+                Intent myIntent = new Intent(MainActivity.this, CameraActivity.class);
+                //myIntent.putExtra("key", value); //Optional parameters
+                MainActivity.this.startActivity(myIntent);
+            }
+            else
+            {
+                Intent myIntent = new Intent(MainActivity.this, CameraHowToActivity.class);
+                //myIntent.putExtra("key", value); //Optional parameters
+                MainActivity.this.startActivity(myIntent);
+            }
 
         } else
         {
@@ -347,7 +398,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void processTextRecognitionResult(FirebaseVisionText texts) {
         List<FirebaseVisionText.Block> blocks = texts.getBlocks();
         if (blocks.size() == 0) {
-            showToast("No text found");
+            showToast("ไม่พบรหัสสินค้า");
+            textResult.setText(prefix);
+            startSearch();
             return;
         }
         String sum = "";
@@ -396,6 +449,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             if(sums.length == 0)
             {
                 textResult.setText(prefix + sum);
+                startSearch();
             }
             else
             {
@@ -410,6 +464,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
 
                 textResult.setText(prefix + realsum);
+                startSearch();
             }
 
         }
@@ -761,6 +816,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 if(sums.length == 0)
                 {
                     textResult.setText(prefix + result);
+                    startSearch();
                 }
                 else
                 {
@@ -775,6 +831,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
 
                     textResult.setText(prefix + realsum);
+                    startSearch();
                 }
             }
 
@@ -799,12 +856,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             result = extractText(mSelectedImage);
 
             textResult.setText(prefix + result);
+            startSearch();
 
             //doThaiOCR();
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
+    }
+
+    private void startSearch()
+    {
+        Intent myIntent = new Intent(MainActivity.this, WebViewActivity.class);
+        myIntent.putExtra("number", textResult.getText().toString()); //Optional parameters
+        MainActivity.this.startActivity(myIntent);
     }
 
 
@@ -890,9 +955,57 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         {
             prefix = "วอส. ";
         }
-        else
+        else if(event.getNum() == 2)
         {
             prefix = "ผ. ";
+        }
+        else if(event.getNum() == 3)
+        {
+            prefix = "น. ";
+        }
+        else if(event.getNum() == 4)
+        {
+            prefix = "จผ. ";
+        }
+        else if(event.getNum() == 5)
+        {
+            prefix = "จน. ";
+        }
+        else if(event.getNum() == 6)
+        {
+            prefix = "1A ";
+        }
+        else if(event.getNum() == 7)
+        {
+            prefix = "1B ";
+        }
+        else if(event.getNum() == 8)
+        {
+            prefix = "1C ";
+        }
+        else if(event.getNum() == 9)
+        {
+            prefix = "2A ";
+        }
+        else if(event.getNum() == 10)
+        {
+            prefix = "2B ";
+        }
+        else if(event.getNum() == 11)
+        {
+            prefix = "2C ";
+        }
+        else if(event.getNum() == 12)
+        {
+            prefix = "F ";
+        }
+        else if(event.getNum() == 13)
+        {
+            prefix = "K ";
+        }
+        else
+        {
+            prefix = "G ";
         }
     }
 

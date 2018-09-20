@@ -47,7 +47,6 @@ public class CameraActivity extends AppCompatActivity
 //    private CameraView cameraView2;
 
 
-    private TextView mTextVos;
     private TextView mTextP;
 
     private ImageView captureButton;
@@ -56,7 +55,25 @@ public class CameraActivity extends AppCompatActivity
     private Button vosButton;
     private Button pButton;
 
+    private Button nButton;
+    private Button jpButton;
+    private Button jnButton;
+
+    private Button oneaButton;
+    private Button onebButton;
+    private Button onecButton;
+
+    private Button twoaButton;
+    private Button twobButton;
+    private Button twocButton;
+
+    private Button fButton;
+    private Button kButton;
+    private Button gButton;
+
     private ImageView pickImage;
+
+    private ImageView howtoButton;
 
     private int pos;
 
@@ -71,8 +88,9 @@ public class CameraActivity extends AppCompatActivity
 
         cameraView = findViewById(R.id.camera);
         pickImage = findViewById(R.id.img_cover_live);
-        mTextVos = findViewById(R.id.text_vos);
         mTextP = findViewById(R.id.text_p);
+
+        howtoButton = findViewById(R.id.imgView_howto);
 
         captureButton = findViewById(R.id.capture_btn);
 
@@ -80,12 +98,48 @@ public class CameraActivity extends AppCompatActivity
         vosButton = findViewById(R.id.btn_vos);
         pButton = findViewById(R.id.btn_p);
 
+        nButton = findViewById(R.id.btn_n);
+        jpButton = findViewById(R.id.btn_jp);
+        jnButton = findViewById(R.id.btn_jn);
+
+        oneaButton = findViewById(R.id.btn_1a);
+        onebButton = findViewById(R.id.btn_1b);
+        onecButton = findViewById(R.id.btn_1c);
+
+        twoaButton = findViewById(R.id.btn_2a);
+        twobButton = findViewById(R.id.btn_2b);
+        twocButton = findViewById(R.id.btn_2c);
+
+        fButton = findViewById(R.id.btn_f);
+        kButton = findViewById(R.id.btn_k);
+        gButton = findViewById(R.id.btn_g);
+
+        ImageView mBack = findViewById(R.id.img_back);
+
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        howtoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(CameraActivity.this, HowToActivity.class);
+                CameraActivity.this.startActivity(myIntent);
+            }
+        });
+
+
+
         nothingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
                 mTextP.setVisibility(View.GONE);
-                mTextVos.setVisibility(View.GONE);
+                cleabBackground();
+                nothingButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
                 pos = 0;
             }
         });
@@ -94,8 +148,10 @@ public class CameraActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                mTextP.setVisibility(View.GONE);
-                mTextVos.setVisibility(View.VISIBLE);
+                mTextP.setVisibility(View.VISIBLE);
+                cleabBackground();
+                vosButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("วอส.");
                 pos = 1;
             }
         });
@@ -105,10 +161,157 @@ public class CameraActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 mTextP.setVisibility(View.VISIBLE);
-                mTextVos.setVisibility(View.GONE);
+                cleabBackground();
+                pButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("ผ.");
                 pos = 2;
             }
         });
+
+        nButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                mTextP.setVisibility(View.VISIBLE);
+                cleabBackground();
+                nButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("น.");
+                pos = 3;
+            }
+        });
+
+        jpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                mTextP.setVisibility(View.VISIBLE);
+                cleabBackground();
+                jpButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("จผ.");
+                pos = 4;
+            }
+        });
+
+        jnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                mTextP.setVisibility(View.VISIBLE);
+                cleabBackground();
+                jnButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("จน.");
+                pos = 5;
+            }
+        });
+
+        oneaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                mTextP.setVisibility(View.VISIBLE);
+                cleabBackground();
+                oneaButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("1A");
+                pos = 6;
+            }
+        });
+
+        onebButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                mTextP.setVisibility(View.VISIBLE);
+                cleabBackground();
+                onebButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("1B");
+                pos = 7;
+            }
+        });
+
+        onecButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                mTextP.setVisibility(View.VISIBLE);
+                cleabBackground();
+                onecButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("1C");
+                pos = 8;
+            }
+        });
+
+        twoaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                mTextP.setVisibility(View.VISIBLE);
+                cleabBackground();
+                twoaButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("2A");
+                pos = 9;
+            }
+        });
+
+        twobButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                mTextP.setVisibility(View.VISIBLE);
+                cleabBackground();
+                twobButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("2B");
+                pos = 10;
+            }
+        });
+
+        twocButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                mTextP.setVisibility(View.VISIBLE);
+                cleabBackground();
+                twocButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("2C");
+                pos = 11;
+            }
+        });
+
+        fButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                mTextP.setVisibility(View.VISIBLE);
+                cleabBackground();
+                fButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("F");
+                pos = 12;
+            }
+        });
+
+        kButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                mTextP.setVisibility(View.VISIBLE);
+                cleabBackground();
+                kButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("K");
+                pos = 13;
+            }
+        });
+
+        gButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                mTextP.setVisibility(View.VISIBLE);
+                cleabBackground();
+                gButton.setBackgroundResource(R.drawable.btn_round_red_bg_cam);
+                mTextP.setText("G");
+                pos = 14;
+            }
+        });
+
 
         pickImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,15 +354,27 @@ public class CameraActivity extends AppCompatActivity
 
     }
 
+    private void cleabBackground()
+    {
+        nothingButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        vosButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        pButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        nButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        jpButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        jnButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        oneaButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        onebButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        onecButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        twoaButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        twobButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        twocButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        fButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        kButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+        gButton.setBackgroundResource(R.drawable.btn_round_orange_bg);
+    }
+
 
     private File getOutputMediaFile(){
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-//        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
-//                + "/Android/data/"
-//                + getApplicationContext().getPackageName()
-//                + "/Files");
-
 
         File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
                 + "/SampleML");
@@ -191,6 +406,14 @@ public class CameraActivity extends AppCompatActivity
     private void startNewAct(Bitmap bitmap)
     {
 
+        Date d = new Date();
+        CharSequence s  = DateFormat.format("MM-dd-yy hh-mm-ss", d.getTime());
+        String filename = "bitmap_" + s + ".png";
+
+        Intent in1 = new Intent(this, CropImagesActivity.class);
+        in1.putExtra("image", filename);
+        startActivity(in1);
+
         File pictureFile = getOutputMediaFile();
         if (pictureFile == null) {
             Log.d("ff",
@@ -198,21 +421,27 @@ public class CameraActivity extends AppCompatActivity
             return;
         }
 
-        try {
-            FileOutputStream fos = new FileOutputStream(pictureFile);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
-            fos.close();
-        } catch (FileNotFoundException e) {
-            Log.d("ff", "File not found: " + e.getMessage());
-        } catch (IOException e) {
-            Log.d("ff", "Error accessing file: " + e.getMessage());
-        }
+//        try {
+//            FileOutputStream fos = new FileOutputStream(pictureFile);
+//            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
+//            fos.close();
+//        } catch (FileNotFoundException e) {
+//            Log.d("ff", "File not found: " + e.getMessage());
+//        } catch (IOException e) {
+//            Log.d("ff", "Error accessing file: " + e.getMessage());
+//        }
 
         try {
             //Write file
-            Date d = new Date();
-            CharSequence s  = DateFormat.format("MM-dd-yy hh-mm-ss", d.getTime());
-            String filename = "bitmap_" + s + ".png";
+
+//            Date d = new Date();
+//            CharSequence s  = DateFormat.format("MM-dd-yy hh-mm-ss", d.getTime());
+//            String filename = "bitmap_" + s + ".png";
+//
+//            Intent in1 = new Intent(this, CropImagesActivity.class);
+//            in1.putExtra("image", filename);
+//            startActivity(in1);
+
             FileOutputStream stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
 
@@ -223,15 +452,15 @@ public class CameraActivity extends AppCompatActivity
             EventBus.getDefault().post(new ChoosePrefixEvent(pos));
 
             //Pop intent
-            Intent in1 = new Intent(this, CropImagesActivity.class);
-            in1.putExtra("image", filename);
-            startActivity(in1);
+//            Intent in1 = new Intent(this, CropImagesActivity.class);
+//            in1.putExtra("image", filename);
+//            startActivity(in1);
+//            finish();
             finish();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override

@@ -18,9 +18,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher1"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher1"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -36,6 +36,7 @@
 
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
@@ -54,6 +55,16 @@
             />
 
         <activity
+            android:name=".HowToActivity"
+            android:screenOrientation="portrait"
+            />
+
+
+        <activity
+            android:name=".CameraHowToActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
             android:name=".SpeechToTextActivity"
             android:screenOrientation="portrait"
             />
@@ -66,6 +77,16 @@
 
         <activity
             android:name=".WebViewActivity"
+            android:screenOrientation="portrait"
+            />
+
+        <activity
+            android:name=".CallWebViewActivity"
+            android:screenOrientation="portrait"
+            />
+
+        <activity
+            android:name=".SearchListActivity"
             android:screenOrientation="portrait"
             />
 

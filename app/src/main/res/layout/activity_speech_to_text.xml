@@ -10,19 +10,49 @@
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
+
+
         <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_oryor_banner"
+            android:id="@+id/oy_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/img_back"
+            app:srcCompat="@drawable/oy_logo_banner"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/oy_img"
+            android:layout_toLeftOf="@id/imgView_howto"
+            android:layout_marginLeft="10dp"
+            android:text="อย. ตรวจเลข"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_xxxlarge_plus"
             />
 
         <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/img_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            android:paddingRight="20dp"
+            app:srcCompat="@drawable/ic_back" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/imgView_howto"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
             android:layout_alignParentRight="true"
             android:layout_marginRight="0dp"
             app:srcCompat="@drawable/ic_oryor_banner_q" />
@@ -31,10 +61,46 @@
 
 
 
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_textResult_speech"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_below="@id/toolbar"-->
+        <!--&gt;-->
+
+        <!--<android.support.v7.widget.AppCompatEditText-->
+            <!--android:id="@+id/edtSpeechTotext"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:layout_width="250dp"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:gravity="center"-->
+            <!--android:hint="พิมพ์เลขค้นหา"-->
+            <!--android:inputType="text"-->
+            <!--android:textColor="@color/colorBlack"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:background="@drawable/btn_round_white_bg"-->
+
+            <!--/>-->
+
+        <!--<android.support.v7.widget.AppCompatImageView-->
+            <!--android:id="@+id/btnSearch"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:layout_marginLeft="-20dp"-->
+            <!--app:srcCompat="@drawable/ic_search_btn"-->
+            <!--/>-->
+
+    <!--</LinearLayout>-->
+
+
     <LinearLayout
         android:id="@+id/ll_textResult_speech"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_centerHorizontal="true"
@@ -44,11 +110,10 @@
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/edtSpeechTotext"
-            android:layout_marginTop="8dp"
             android:layout_width="250dp"
-            android:layout_marginLeft="20dp"
             android:gravity="center"
             android:hint="พิมพ์เลขค้นหา"
+            android:layout_marginLeft="20dp"
             android:inputType="text"
             android:textColor="@color/colorBlack"
             android:layout_height="40dp"
@@ -59,26 +124,41 @@
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_height="45dp"
+            android:scaleType="centerCrop"
             android:layout_marginLeft="-20dp"
             app:srcCompat="@drawable/ic_search_btn"
             />
+
+
 
     </LinearLayout>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btnReset"
         android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:text="ล้างค่า"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:textColor="@color/colorWhite"
         android:background="@drawable/btn_round_red_bg"
         android:layout_below="@id/ll_textResult_speech"
         android:layout_centerHorizontal="true" />
 
 
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:id="@+id/howto_speech"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorRed"
+        android:layout_below="@id/btnReset"
+        android:layout_marginTop="20dp"
+        android:text="@string/how_to_speech"
 
+        />
 
     <!--<LinearLayout-->
         <!--android:id="@+id/linearButton"-->
@@ -100,17 +180,22 @@
     <!--</LinearLayout>-->
 
 
-
-
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btnRec"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:text="อัดเสียง"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:textColor="@color/colorWhite"
-        android:background="@drawable/btn_round_red_bg"
+        android:background="@drawable/ic_sound_rec"
         android:layout_centerInParent="true"
+        android:layout_below="@id/howto_speech"
 
+        />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/mole"
+        android:layout_alignParentBottom="true"
         />
 
 

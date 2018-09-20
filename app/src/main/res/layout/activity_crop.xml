@@ -8,24 +8,119 @@
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_oryor_banner"
+            android:id="@+id/oy_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/img_back"
+            app:srcCompat="@drawable/oy_logo_banner"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/oy_img"
+            android:layout_toLeftOf="@id/imgView_howto"
+            android:layout_marginLeft="10dp"
+            android:text="อย. ตรวจเลข"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_xxxlarge_plus"
             />
 
         <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/img_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            android:paddingRight="20dp"
+            app:srcCompat="@drawable/ic_back" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/imgView_howto"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
             android:layout_alignParentRight="true"
             android:layout_marginRight="0dp"
             app:srcCompat="@drawable/ic_oryor_banner_q" />
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/cropImageView"
+        android:gravity="top"
+        android:orientation="vertical"
+        >
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="วิธีการเช็กเลขด้วยกล้อง"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="@color/colorWhite"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2/2"
+            android:textSize="@dimen/text_size_medium_plus"
+            android:textColor="@color/colorWhite"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_medium_plus"
+            android:text="ครอปภาพให้เหลือเฉพาะชุดตัวเลขที่ต้องการตรวจสอบแล้วกด “ค้นหา”"
+            android:textColor="@color/colorWhite"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="ตัวอย่างการครอป"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="วอส.1234xxx"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1A1234xxx"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            />
+
+    </LinearLayout>
 
 
 
@@ -37,12 +132,16 @@
         />
 
 
-    <android.support.v7.widget.AppCompatImageView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/crop_btn"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/app_oy_camera3_03"
+        android:text="ค้นหา"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size_xxxlarge_plus"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         />

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="text_size_nano">7sp</dimen>
+    <dimen name="text_size_nano_plus">8sp</dimen>
+    <dimen name="text_size_micro">9sp</dimen>
+    <dimen name="text_size_micro_plus">10sp</dimen>
+    <dimen name="text_size_small">11sp</dimen>
+    <dimen name="text_size_small_plus">13sp</dimen>
+    <dimen name="text_size_medium">15sp</dimen>
+    <dimen name="text_size_medium_plus">16sp</dimen>
+    <dimen name="text_size_large">17sp</dimen>
+    <dimen name="text_size_large_plus">18sp</dimen>
+    <dimen name="text_size_xlarge">19sp</dimen>
+    <dimen name="text_size_xlarge_plus">21sp</dimen>
+    <dimen name="text_size_xxlarge">23sp</dimen>
+    <dimen name="text_size_xxlarge_plus">25sp</dimen>
+    <dimen name="text_size_xxxlarge">27sp</dimen>
+    <dimen name="text_size_xxxlarge_plus">29sp</dimen>
+
+    <dimen name="text_size_xxxxlarge_plus">32sp</dimen>
+
+    <dimen name="overlay_statusbar_margin">0dp</dimen>
+
+    <dimen name="dialog_width">-1dp</dimen>
+    <dimen name="dialog_height">-1dp</dimen>
+
+    <dimen name="sixtydp">60dp</dimen>
+    <dimen name="onetwentydp">120dp</dimen>
+
+</resources>

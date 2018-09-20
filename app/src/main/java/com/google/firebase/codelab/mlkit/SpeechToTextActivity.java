@@ -21,10 +21,23 @@ public class SpeechToTextActivity extends AppCompatActivity
     private Button mButtonSpeechToTextReset;
     private Button mButtonSpeechTotextRecord;
 
+    private ImageView howtoButton;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_to_text);
+
+        ImageView mBack = findViewById(R.id.img_back);
+
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
 
         initView();
         initValue();
@@ -37,6 +50,8 @@ public class SpeechToTextActivity extends AppCompatActivity
         mButtonSpeechToTextSearch = findViewById(R.id.btnSearch);
         mButtonSpeechToTextReset = findViewById(R.id.btnReset);
         mButtonSpeechTotextRecord = findViewById(R.id.btnRec);
+
+        howtoButton = findViewById(R.id.imgView_howto);
     }
 
     private void initValue()
@@ -52,6 +67,14 @@ public class SpeechToTextActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 mEditTextspeechToText.setText("");
+            }
+        });
+
+        howtoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(SpeechToTextActivity.this, HowToActivity.class);
+                SpeechToTextActivity.this.startActivity(myIntent);
             }
         });
 
