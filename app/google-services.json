@@ -17,6 +17,41 @@
         {
           "client_id": "729373262908-hlfjuvmvgn6f5f4jlqp1tj7bihte967n.apps.googleusercontent.com",
           "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC47BjATuZVBmy11gqACgChG7ct8n_A-4Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729373262908:android:7cc7c4092c625c5e",
+        "android_client_info": {
+          "package_name": "com.oryor.smartocr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729373262908-al7t68vm6o5k4u8qk1evevnfenk2e8tu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.oryor.smartocr",
+            "certificate_hash": "701ebcc05ad89a8508f6ddc7dd29d7dbbe0cc067"
+          }
         },
         {
           "client_id": "729373262908-hlfjuvmvgn6f5f4jlqp1tj7bihte967n.apps.googleusercontent.com",
@@ -33,8 +68,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729373262908-hlfjuvmvgn6f5f4jlqp1tj7bihte967n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

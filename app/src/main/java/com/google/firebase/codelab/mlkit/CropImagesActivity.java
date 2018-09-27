@@ -4,9 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,8 +21,13 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CropImagesActivity extends AppCompatActivity
 {
@@ -88,8 +97,56 @@ public class CropImagesActivity extends AppCompatActivity
     }
 
 
+    private File getOutputMediaFile(){
+
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
+                + "/SampleML");
+
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+
+        // Create a media file name
+        //String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
+        File mediaFile;
+        String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
+        String mImageName="MI_"+ timeStamp +".jpg";
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
+        Uri contentUri = Uri.fromFile(mediaFile);
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
+
+        return mediaFile;
+    }
+
+
     private void startNewAct(Bitmap bitmap)
     {
+        File pictureFile = getOutputMediaFile();
+        if (pictureFile == null) {
+            Log.d("ff",
+                    "Error creating media file, check storage permissions: ");// e.getMessage());
+            return;
+        }
+
+        try {
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
+            fos.close();
+        } catch (FileNotFoundException e) {
+            Log.d("ff", "File not found: " + e.getMessage());
+        } catch (IOException e) {
+            Log.d("ff", "Error accessing file: " + e.getMessage());
+        }
+
+
         try {
             //Write file
             String filename = "bitmap_finish.png";

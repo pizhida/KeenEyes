@@ -390,9 +390,11 @@ public class CameraActivity extends AppCompatActivity
         }
 
         // Create a media file name
-        String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
+        //String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
         File mediaFile;
-        String mImageName="MI_"+ timeStamp +".jpg";
+        Date d = new Date();
+        CharSequence s  = DateFormat.format("MM-dd-yy hh-mm-ss", d.getTime());
+        String mImageName= "bitmap_" + s + ".png";
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
         Uri contentUri = Uri.fromFile(mediaFile);
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -405,7 +407,6 @@ public class CameraActivity extends AppCompatActivity
 
     private void startNewAct(Bitmap bitmap)
     {
-
         Date d = new Date();
         CharSequence s  = DateFormat.format("MM-dd-yy hh-mm-ss", d.getTime());
         String filename = "bitmap_" + s + ".png";
@@ -444,6 +445,10 @@ public class CameraActivity extends AppCompatActivity
 
             FileOutputStream stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+//            FileOutputStream fos = new FileOutputStream(pictureFile);
+//            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
+//            fos.close();
 
             //Cleanup
             stream.close();
